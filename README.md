@@ -104,8 +104,11 @@ As you can see it no longer makes a ton of sense, but it will still be very info
     
 # Now we are ready for topic modeling!
 Open:
+
+[topic_modeling_ted_1.nb][6] 
     
-> topic_modeling_ted_1.nb
+[6]: https://github.com/1fmusic/tedTalkRecommender/blob/master/topic_modeling_ted_1.ipynb
+
     
 First get the cleaned_talks from the previous step. Then import the models
 
