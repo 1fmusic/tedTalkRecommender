@@ -7,11 +7,11 @@ This repo contains Ipython/Jupyter notebooks for basic exploration of transcript
 
 The initial cleaning and exploration are done in 
    
-    ## ted_clean_explore.nb
+> ted_clean_explore.nb
 
    Start by importing the csv files and looking at the raw data. Combine the metadata and transcripts and save as 'ted_all' (both datasets have a url column, so we merge on that one). Create a variable that holds only the transcripts called 'talks'. Below is a sample of the transcript from the most popular (highest views) Ted Talk. 'Do Schools Kill Creativity? by Sir Ken Robinson. 
 
-    Good morning. How are you?(Laughter)It\\'s been great, hasn\\'t it? I\\'ve been blown away by the whole thing. In fact, I\\'m leaving.(Laughter)There have been three themes running through the conference which are relevant to what I want to talk about. One is the extraordinary evidence of human creativity
+    Good morning. How are you?(Laughter)It\\'s been great, hasn\\'t it? 
 
 The first thing I saw when looking at these transcripts was that there were a lot of parentheticals for various non-speech sounds. For example, (Laughter) or (applause) or (Music).  There were even some cute little notes when the lyrics of a performance were transcribed
     
@@ -41,8 +41,8 @@ Four important steps for cleaning the text and getting it into a format that we 
     print('\\n-----\\n'.join(wordpunct_tokenize(docs[1])))
  
     OUTPUT:
-       Good
-      morning
+    Good
+    morning
     .
     How
     are
@@ -54,12 +54,13 @@ The notes were easy to remove by adding them to my stop words. Stopwords are the
     
 * We can do this by importing NLTKs list of **stopwords** and then adding to it. I added a lot of words and little things that weren't getting picked up, but this is a sample of my list. I went through many iterations of cleaning in order to figure out which words to add to my stopwords.
 
-    ```
+```
       from nltk.corpus import stopwords,
       stop = stopwords.words('english')
       stop += ['.',\" \\'\", 'ok','okay','yeah','ya','stuff','?']
-    ```
+```
 **Lemmatization** - In this step, we get each word down to its root form. I chose the lemmatizer over the stemmer because it was more conservative and was able to change the ending to the appropriate one (i.e. children-->child, capacities-->capacity). This was at the expense of missing a few obvious ones (starting, unpredictability).
+
 ```
         from nltk.stem import WordNetLemmatizer
         lemmizer = WordNetLemmatizer()
@@ -74,20 +75,19 @@ The notes were easy to remove by adding them to my stop words. Stopwords are the
                 #another shot at removing stopwords
                 if low_word.lower() not in stop:
                     clean_words.append(low_word.lower())
-    ```
+```
    
  Now we have squeaky clean text! Here's the same excerpt that I showed you at the top of the README.
+ 
  ```
     good morning great blown away whole thing fact leaving three theme running conference relevant want talk one extraordinary evidence human creativity
-    ```
+```
     
 As you can see it no longer makes a ton of sense, but it will still be very informative once we process these words over the whole corpus of talks.
 
 * **Vectorization** is the important step of turning our words into numbers. The method that gave me the best results was count vectorizer. This function takes each word in each document and counts the number of times the word appears. You end up with each word as your columns and each row is a document (talk), so the data is the frequency of each word in each document. As you can imagine, there will be a large number of zeros in this matrix; we call this a sparse matrix. 
     
-    large number of zeros in this matrix; we call this a sparse matrix. 
-    
-    ```
+```
     c_vectorizer = CountVectorizer(ngram_range=(1,3), 
                                  stop_words='english',
                                  max_df = 0.6, 
@@ -98,14 +98,15 @@ As you can see it no longer makes a ton of sense, but it will still be very info
     
     # finally, call `transform` to convert text to a bag of words
     c_x = c_vectorizer.transform(cleaned_talks)
-    ```
+```
     
 # Now we are ready for topic modeling!
 Open:
     
-topic_modeling_ted_1.nb
+> topic_modeling_ted_1.nb
     
 First get the cleaned_talks from the previous step. Then import the models
+
 ```
     from sklearn.decomposition import LatentDirichletAllocation,  TruncatedSVD, NMF
 ```
@@ -113,6 +114,7 @@ First get the cleaned_talks from the previous step. Then import the models
 We will try each of these models and tune the hyperparameters to see which one gives us the best topics (ones that make sense to you). It's an art.
     
 This is the main format of calling the model, but I put it into a function along with the vectorizers so that I could easily manipulate the paremeters like 'number of topics, number of iterations (max_iter),n-gram size (ngram_min,ngram_max), number of features (max_df): 
+
 ```
     lda = LatentDirichletAllocation(n_components=topics,
                                         max_iter=iters,
@@ -148,7 +150,9 @@ After the tSNE plot, you will find the functions to run the other models (NMF, T
     
 
 # Recommender
-Recommender_ted.nb
+
+> Recommender_ted.nb
+https://github.com/1fmusic/tedTalkRecommender/blob/master/Recommender_ted.ipynb
     
 Load the entire data set, and all the results from the LDA model.
 The function will take in a talk (enter the ID number) and find the 10 closest talks using nearest neighbors.  
@@ -159,9 +163,9 @@ The distance, topic name, url, and ted's tags for the talk will print for the ta
     
 There is an even better verion of the recommender in the form of a flask app. This app can also 'find' your talk even if you don't remember the title.
     
-ted_rec.html
+> ted_rec.html
     
-ted_app.py 
+> ted_app.py 
     
 You enter the keywords, or words from the title. 
 Then, it returns your talk's title and url along with 5 similar ted talks (urls) that are similar to yours.  
