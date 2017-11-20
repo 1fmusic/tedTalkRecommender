@@ -7,7 +7,7 @@ This repo contains Ipython/Jupyter notebooks for basic exploration of transcript
 
 The initial cleaning and exploration are done in 
    
-> ted_clean_explore.nb[2]
+> [ted_clean_explore.nb][2]
 [2]: https://github.com/1fmusic/tedTalkRecommender/blob/master/ted_clean_explore.ipynb
 
    Start by importing the csv files and looking at the raw data. Combine the metadata and transcripts and save as 'ted_all' (both datasets have a url column, so we merge on that one). Create a variable that holds only the transcripts called 'talks'. Below is a sample of the transcript from the most popular (highest views) Ted Talk. 'Do Schools Kill Creativity? by Sir Ken Robinson. 
