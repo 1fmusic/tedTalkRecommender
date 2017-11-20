@@ -1,52 +1,34 @@
-{
- "cells": [
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "# README \n",
-    "## Ted Talk NLP and Recommender\n",
-    "### Project 4: metis - Summer K. Rankin \n",
-    "\n",
-    "\n"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "This repo contains Ipython/Jupyter notebooks for basic exploration of transcripts of Ted Talks using Natural Language Processing (NLP), topic modeling, and a recommender that lets you enter key words from the title of a talk and finds 5 talks that are similar. \n",
-    "\n",
-    "The data consists of transcripts from Ted and TedX talks. Thanks to the lovely Rounak Banik and his web scraping I was able to dowload transcripts from 2467 Ted and TedX talks from 355 different Ted events. I downloaded this corpus from Kaggle, along with metadata about every talk. I encourage you to go to kaggle and download it so that he can get credit for his scraping rather than put it in this repo.\n",
-    "https://www.kaggle.com/rounakbanik/ted-talks\n",
-    "\n",
-    "\n",
-    "The initial cleaning and exploration are done in \n",
-    "\n",
-    "ted_clean_explore.nb\n",
-    "\n",
-    "Start by importing the csv files and looking at the raw data. Combine the metadata and transcripts and save as 'ted_all' (both datasets have a url column, so we merge on that one). Create a variable that holds only the transcripts called 'talks'. Below is a sample of the transcript from the most popular (highest views) Ted Talk. 'Do Schools Kill Creativity? by Sir Ken Robinson. \n",
-    "\n",
-    "    Good morning. How are you?(Laughter)It\\'s been great, hasn\\'t it? I\\'ve been blown away by the whole thing. In fact, I\\'m leaving.(Laughter)There have been three themes running through the conference which are relevant to what I want to talk about. One is the extraordinary evidence of human creativity\n",
-    "\n",
-    "The first thing I saw when looking at these transcripts was that there were a lot of parentheticals for various non-speech sounds. For example, (Laughter) or (applause) or (Music).  There were even some cute little notes when the lyrics of a performance were transcribed \n",
-    "\n",
-    "    someone like him ♫♫ He was tall and strong \n",
-    "    \n",
-    "I decided that I wanted to look at only the words that the speaker said, and remove these words in parentheses. Although, it would be interesting to collect these non-speech events and keep a count in the main matrix, especially for things like 'laughter' or applause or multimedia (present/not present) in making recommendations or calculating the popularity of a talk.\n",
-    "\n",
-    "Lucky for me, all of the parentheses contained these non-speech sounds and any of the speaker's words that required parenthesis were in brackets, so I just removed them with a simple regular expression. Thank you, Ted transcribers, for making my life a little easier!!! \n",
-    "\n",
-    "    clean_parens = re.sub(r'\\([^)]*\\)', ' ', text)\n",
-    "\n",
-    "# Cleaning Text with NLTK\n",
-    "\n",
-    "Four important steps for cleaning the text and getting it into a format that we can analyze:\n",
-    "\n",
-    "    1.tokenize\n",
-    "    2.lemmatize\n",
-    "    3.remove stop words/punctuation\n",
-    "    4.vectorize\n",
+# Ted Talk Recommender
+
+This repo contains Ipython/Jupyter notebooks for basic exploration of transcripts of Ted Talks using Natural Language Processing (NLP), topic modeling, and a recommender that lets you enter key words from the title of a talk and finds 5 talks that are similar.
+    The data consists of transcripts from Ted and TedX talks. Thanks to the lovely Rounak Banik and his web scraping I was able to dowload transcripts from 2467 Ted and TedX talks from 355 different Ted events. I downloaded this corpus from Kaggle, along with metadata about every talk. I encourage you to go to kaggle and download it so that he can get credit for his scraping rather than put it in this repo.
+    https://www.kaggle.com/rounakbanik/ted-talks
+    
+
+The initial cleaning and exploration are done in 
+   
+    ## ted_clean_explore.nb
+
+   Start by importing the csv files and looking at the raw data. Combine the metadata and transcripts and save as 'ted_all' (both datasets have a url column, so we merge on that one). Create a variable that holds only the transcripts called 'talks'. Below is a sample of the transcript from the most popular (highest views) Ted Talk. 'Do Schools Kill Creativity? by Sir Ken Robinson. 
+
+    Good morning. How are you?(Laughter)It\\'s been great, hasn\\'t it? I\\'ve been blown away by the whole thing. In fact, I\\'m leaving.(Laughter)There have been three themes running through the conference which are relevant to what I want to talk about. One is the extraordinary evidence of human creativity
+
+The first thing I saw when looking at these transcripts was that there were a lot of parentheticals for various non-speech sounds. For example, (Laughter) or (applause) or (Music).  There were even some cute little notes when the lyrics of a performance were transcribed
+    
+    someone like him ♫♫ He was tall and strong,
+ 
+   I decided that I wanted to look at only the words that the speaker said, and remove these words in parentheses. Although, it would be interesting to collect these non-speech events and keep a count in the main matrix, especially for things like 'laughter' or applause or multimedia (present/not present) in making recommendations or calculating the popularity of a talk.
+   
+    Lucky for me, all of the parentheses contained these non-speech sounds and any of the speaker's words that required parenthesis were in brackets, so I just removed them with a simple regular expression. Thank you, Ted transcribers, for making my life a little easier!!!
+    
+    clean_parens = re.sub(r'\\([^)]*\\)', ' ', text)
+    
+# Cleaning Text with NLTK\n",
+Four important steps for cleaning the text and getting it into a format that we can analyze:\n",
+1.tokenize\n",
+2.lemmatize\n",
+3.remove stop words/punctuation\n",
+4.vectorize\n",
     "\n",
     "[NLTK (Natural Language ToolKit)][1] is a python library for NLP. I found it very easy to use and highly effective.\n",
     "\n",
