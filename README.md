@@ -23,16 +23,16 @@ The first thing I saw when looking at these transcripts was that there were a lo
     
     clean_parens = re.sub(r'\\([^)]*\\)', ' ', text)
     
-# Cleaning Text with NLTK",
+# Cleaning Text with NLTK
 Four important steps for cleaning the text and getting it into a format that we can analyze:
-1.tokenize
-2.lemmatize
-3.remove stop words/punctuation
-4.vectorize
+1)tokenize
+2)lemmatize
+3)remove stop words/punctuation
+4)vectorize
     
-    [NLTK (Natural Language ToolKit)][1] is a python library for NLP. I found it very easy to use and highly effective.
+[NLTK (Natural Language ToolKit)][1] is a python library for NLP. I found it very easy to use and highly effective.
     
-    [1]: http://www.nltk.org/
+[1]: http://www.nltk.org/
     
  * **tokenize**- This is the process of splitting up the document (talk) into words. There are a few tokenizers in NLTK, and one called **wordpunct** was my favorite because it separated the punctuation as well.
     ```
@@ -44,13 +44,13 @@ Four important steps for cleaning the text and getting it into a format that we 
        Good
       morning
     .
- How
-are
-   you
+    How
+    are
+    you
     ?
- ```
+    ```
    
- The notes were easy to remove by adding them to my stop words. Stopwords are the words that don't give us much information, (i.e., the, and, it, she, as) along with the punctuation. We want to remove these from our text, too. 
+The notes were easy to remove by adding them to my stop words. Stopwords are the words that don't give us much information, (i.e., the, and, it, she, as) along with the punctuation. We want to remove these from our text, too. 
     
 * We can do this by importing NLTKs list of **stopwords** and then adding to it. I added a lot of words and little things that weren't getting picked up, but this is a sample of my list. I went through many iterations of cleaning in order to figure out which words to add to my stopwords.
 
@@ -60,7 +60,7 @@ are
       stop += ['.',\" \\'\", 'ok','okay','yeah','ya','stuff','?']
     ```
 **Lemmatization** - In this step, we get each word down to its root form. I chose the lemmatizer over the stemmer because it was more conservative and was able to change the ending to the appropriate one (i.e. children-->child, capacities-->capacity). This was at the expense of missing a few obvious ones (starting, unpredictability).
-    ```
+```
         from nltk.stem import WordNetLemmatizer
         lemmizer = WordNetLemmatizer()
         clean_words = []
@@ -105,16 +105,15 @@ Open:
     
 topic_modeling_ted_1.nb
     
-    First get the cleaned_talks from the previous step. Then import the models
-    
-    ```
+First get the cleaned_talks from the previous step. Then import the models
+```
     from sklearn.decomposition import LatentDirichletAllocation,  TruncatedSVD, NMF
-    ```
+```
     
-    We will try each of these models and tune the hyperparameters to see which one gives us the best topics (ones that make sense to you). It's an art.
+We will try each of these models and tune the hyperparameters to see which one gives us the best topics (ones that make sense to you). It's an art.
     
-    This is the main format of calling the model, but I put it into a function along with the vectorizers so that I could easily manipulate the paremeters like 'number of topics, number of iterations (max_iter),n-gram size (ngram_min,ngram_max), number of features (max_df): 
-    ```
+This is the main format of calling the model, but I put it into a function along with the vectorizers so that I could easily manipulate the paremeters like 'number of topics, number of iterations (max_iter),n-gram size (ngram_min,ngram_max), number of features (max_df): 
+```
     lda = LatentDirichletAllocation(n_components=topics,
                                         max_iter=iters,
                                         random_state=42,
@@ -122,48 +121,49 @@ topic_modeling_ted_1.nb
                                         n_jobs=-1)
        
     lda_dat = lda.fit_transform(vect_data)
-    ```
-    The functions will print the topics and the most frequent 20 words in each topic.
+```
+The functions will print the topics and the most frequent 20 words in each topic.
     
-    The best parameter to tweak is the number of topics, higher is more narrow, but I decided to stay with a moderate number (20) because I didn't want the recommender to be too specific in the recommendations.
- 
-    Once we get the topics that look good, we can do some clustering to improve it further. However, as you can see, these topics are already pretty good, so we will just assign the topic with the highest score to each document. 
-    ```
+The best parameter to tweak is the number of topics, higher is more narrow, but I decided to stay with a moderate number (20) because I didn't want the recommender to be too specific in the recommendations.
+
+Once we get the topics that look good, we can do some clustering to improve it further. However, as you can see, these topics are already pretty good, so we will just assign the topic with the highest score to each document. 
+```
     topic_ind = np.argmax(lda_data, axis=1)
     topic_ind.shape
     y=topic_ind
-    ```
+```
     
-    Then, you have to decide what to name each topic. Do this and save it for plotting purposes in topic_names. Remember that LDA works by putting all the noise into one topic, so there should be a 'junk' topic that makes no sense. I realize that as you look at my code, you will see that I have not named a 'junk' topic here.  The closest was the 'family' topic but  I still felt like it could be named.  Usually, when running the models with a higher number of topics (25 or more) you would see one that was clearly junk.   
-    ``` 
+Then, you have to decide what to name each topic. Do this and save it for plotting purposes in topic_names. Remember that LDA works by putting all the noise into one topic, so there should be a 'junk' topic that makes no sense. I realize that as you look at my code, you will see that I have not named a 'junk' topic here.  The closest was the 'family' topic but  I still felt like it could be named.  Usually, when running the models with a higher number of topics (25 or more) you would see one that was clearly junk.   
+``` 
         topic_names = tsne_labels
         topic_names[topic_names==0] = \"family\" 
         . . .
-    ```
+```
     
-    Then we can use some visualization tools to 'see' what our clusters look like. The pyLDAviz is really fun, but only plots the first 2 components, so it isn't exactly that informative. I like looking at the topics using this tool, though. Note: you can only use it on LDA models.
+Then we can use some visualization tools to 'see' what our clusters look like. The pyLDAviz is really fun, but only plots the first 2 components, so it isn't exactly that informative. I like looking at the topics using this tool, though. Note: you can only use it on LDA models.
     
-    The best way to 'see' the clusters, is to do another dimensionality reduction and plot them in a new (3D) space. This is called tSNE (t-Distributed Stochastic Neighbor Embedding. When you view the tSNE ,it is important to remember that the distance between clusters isn't relevant, just the clumpiness of the clusters. For example, do the points that are red clump together or are they really spread out? If they are all spread out, then that topic is probably not very cohesive (the documents in there may not be very similar).  
+The best way to 'see' the clusters, is to do another dimensionality reduction and plot them in a new (3D) space. This is called tSNE (t-Distributed Stochastic Neighbor Embedding. When you view the tSNE ,it is important to remember that the distance between clusters isn't relevant, just the clumpiness of the clusters. For example, do the points that are red clump together or are they really spread out? If they are all spread out, then that topic is probably not very cohesive (the documents in there may not be very similar).  
     
-    After the tSNE plot, you will find the functions to run the other models (NMF, Truncated SVD). 
+After the tSNE plot, you will find the functions to run the other models (NMF, Truncated SVD). 
     
 
 # Recommender
-    Recommender_ted.nb
-    Load the entire data set, and all the results from the LDA model.
-    The function will take in a talk (enter the ID number) and find the 10 closest talks using nearest neighbors.  
+Recommender_ted.nb
     
-    The distance, topic name, url, and ted's tags for the talk will print for the talk you enter and each recommendation. 
+Load the entire data set, and all the results from the LDA model.
+The function will take in a talk (enter the ID number) and find the 10 closest talks using nearest neighbors.  
+    
+The distance, topic name, url, and ted's tags for the talk will print for the talk you enter and each recommendation. 
 
 # Flask App
     
-    There is an even better verion of the recommender in the form of a flask app. This app can also 'find' your talk even if you don't remember the title.
+There is an even better verion of the recommender in the form of a flask app. This app can also 'find' your talk even if you don't remember the title.
     
-    ted_rec.html
+ted_rec.html
     
-    ted_app.py 
+ted_app.py 
     
-    You enter the keywords, or words from the title. 
-    Then, it returns your talk's title and url along with 5 similar ted talks (urls) that are similar to yours.  
+You enter the keywords, or words from the title. 
+Then, it returns your talk's title and url along with 5 similar ted talks (urls) that are similar to yours.  
    
  
