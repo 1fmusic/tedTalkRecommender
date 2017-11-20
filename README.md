@@ -7,8 +7,12 @@ This repo contains Ipython/Jupyter notebooks for basic exploration of transcript
 
 The initial cleaning and exploration are done in 
    
-> [ted_clean_explore.nb][2]
-[2]: https://github.com/1fmusic/tedTalkRecommender/blob/master/ted_clean_explore.ipynb/
+> [ted_clean_explore.nb][1]
+[1]: https://github.com/1fmusic/tedTalkRecommender/blob/master/ted_clean_explore.ipynb/
+
+[ted_clean_explore.nb][1] is a python library for NLP. I found it very easy to use and highly effective.
+    
+[1]: https://github.com/1fmusic/tedTalkRecommender/blob/master/ted_clean_explore.ipynb/
 
    Start by importing the csv files and looking at the raw data. Combine the metadata and transcripts and save as 'ted_all' (both datasets have a url column, so we merge on that one). Create a variable that holds only the transcripts called 'talks'. Below is a sample of the transcript from the most popular (highest views) Ted Talk. 'Do Schools Kill Creativity? by Sir Ken Robinson. 
 
@@ -31,9 +35,9 @@ Four important steps for cleaning the text and getting it into a format that we 
 3)remove stop words/punctuation
 4)vectorize
     
-[NLTK (Natural Language ToolKit)][1] is a python library for NLP. I found it very easy to use and highly effective.
+[NLTK (Natural Language ToolKit)][2] is a python library for NLP. I found it very easy to use and highly effective.
     
-[1]: http://www.nltk.org/
+[2]: http://www.nltk.org/
     
  * **tokenize**- This is the process of splitting up the document (talk) into words. There are a few tokenizers in NLTK, and one called **wordpunct** was my favorite because it separated the punctuation as well.
     ```
