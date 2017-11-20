@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+
+    <title>Ted Talk Finder and Recommender</title>
+
+  </head>
+
+
+  <body>
+    <center>
+    <img style="height:277px;" src="http://marconisociety.org/wp-content/uploads/2017/05/TED_banner-845x321.png">
+    <!img src="https://09c449efca3bbeb52dcea716-ddjaey2ypcfdo.netdna-ssl.com/wp-content/uploads/2017/03/TED.gif">
+
+
+    <h1> <p>Welcome to the Ted Talk Finder and Recommender</p></h1>
+
+    <h3> <p>Enter Keywords or the Ted Talk Title</p></h3>
+
+    <input style="height:25px;font-size:14pt;" type="text" id="TedTalkTitle"></input>
+    <button style="height:20px;font-size:8pt;"id="button" onclick="getRecs()">Submit</button>
+    <h1><p><div id="yours"> </div></p></h1>
+    <h2><p>Topic:<div id="topicID"></div></p></h2>
+    <h3><a href="url" id="link1">  </a></h3>
+    <br>
+    <h2><p>You might also enjoy: <div id="output"></div></p></h2>
+
+    <br>
+    <h3><a href="url" id="link2">  </a>
+    <br>
+    <br>
+    <br>
+    <a href="url" id="link3"> </a>
+    <br>
+    <br>
+    <br>
+    <a href="url" id="link4">  </a>
+    <br>
+    <br>
+    <br>
+    <a href="url" id="link5">  </a>
+    <br>
+    <br>
+    <br>
+    <a href="url" id="link6">  </a></h3>
+
+  </center>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script>
+
+     <!-- FUNCTION TO GET CHANCE FROM YOUR PREDICTOR WITH AJAX AND CHANGE BAR  HEIGHT -->
+  function getRecs(){
+    var talkID =document.getElementById("TedTalkTitle").value;
+
+    $.ajax({
+      type: "POST",
+      contentType: "application/json; charset=utf-8",
+      url: "/ted",
+      dataType: "json",
+      async: true,
+      data: JSON.stringify(talkID),
+
+      success: function (results) {
+        document.getElementById("yours").textContent = results[6]
+        document.getElementById("topicID").textContent = results[7]
+        document.getElementById("link1").href = results[0]
+        document.getElementById("link1").textContent= results[0]
+        document.getElementById("link2").href = results[1]
+        document.getElementById("link2").textContent= results[1]
+        document.getElementById("link3").href = results[2]
+        document.getElementById("link3").textContent= results[2]
+        document.getElementById("link4").href = results[3]
+        document.getElementById("link4").textContent= results[3]
+        document.getElementById("link5").href = results[4]
+        document.getElementById("link5").textContent= results[4]
+        document.getElementById("link6").href = results[5]
+        document.getElementById("link6").textContent= results[5]
+      },
+      error: function (results) {
+      },
+    })
+  }
+
+  </script>
+  </body>
+</html>
