@@ -7,10 +7,7 @@ This repo contains Ipython/Jupyter notebooks for basic exploration of transcript
 
 The initial cleaning and exploration are done in 
    
-> [ted_clean_explore.nb][1]
-[1]: https://github.com/1fmusic/tedTalkRecommender/blob/master/ted_clean_explore.ipynb/
-
-[ted_clean_explore.nb][1] is a python library for NLP. I found it very easy to use and highly effective.
+[ted_clean_explore.nb][1] 
     
 [1]: https://github.com/1fmusic/tedTalkRecommender/blob/master/ted_clean_explore.ipynb/
 
@@ -156,8 +153,9 @@ After the tSNE plot, you will find the functions to run the other models (NMF, T
 
 # Recommender
 
-> Recommender_ted.nb
-https://github.com/1fmusic/tedTalkRecommender/blob/master/Recommender_ted.ipynb
+[Recommender_ted.nb][3] 
+    
+[3]: https://github.com/1fmusic/tedTalkRecommender/blob/master/Recommender_ted.ipynb
     
 Load the entire data set, and all the results from the LDA model.
 The function will take in a talk (enter the ID number) and find the 10 closest talks using nearest neighbors.  
@@ -167,10 +165,15 @@ The distance, topic name, url, and ted's tags for the talk will print for the ta
 # Flask App
     
 There is an even better verion of the recommender in the form of a flask app. This app can also 'find' your talk even if you don't remember the title.
+
+[ted_rec.html][4] 
     
-> ted_rec.html
+[4]: https://github.com/1fmusic/tedTalkRecommender/blob/master/ted_rec.html
+
+[ted_app.py][5] 
     
-> ted_app.py 
+[5]: https://github.com/1fmusic/tedTalkRecommender/blob/master/ted_app.py
+
     
 You enter the keywords, or words from the title. 
 Then, it returns your talk's title and url along with 5 similar ted talks (urls) that are similar to yours.  
