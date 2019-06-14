@@ -1,5 +1,17 @@
 # Ted Talk Recommender
 
+Order of the files: (keep reading for descriptions) 
+
+1. [ted_clean_explore.nb][1] 
+2. [topic_modeling_ted_1.nb][6] 
+3. [Recommender_ted.nb][3] 
+4. [ted_rec.html][4] 
+5. [ted_app.py][5] 
+6. [ted_talks_2_elastic_slides.ipynb][7]
+
+[7]: https://github.com/1fmusic/tedTalkRecommender/blob/master/ted_talks_2_elastic_slides.ipynb
+
+
 This repo contains Ipython/Jupyter notebooks for basic exploration of transcripts of Ted Talks using Natural Language Processing (NLP), topic modeling, and a recommender that lets you enter key words from the title of a talk and finds 5 talks that are similar.
     The data consists of transcripts from Ted and TedX talks. Thanks to the lovely Rounak Banik and his web scraping I was able to dowload transcripts from 2467 Ted and TedX talks from 355 different Ted events. I downloaded this corpus from Kaggle, along with metadata about every talk. I encourage you to go to kaggle and download it so that he can get credit for his scraping rather than put it in this repo.
     https://www.kaggle.com/rounakbanik/ted-talks
@@ -180,5 +192,10 @@ There is an even better verion of the recommender in the form of a flask app. Th
     
 You enter the keywords, or words from the title. 
 Then, it returns your talk's title and url along with 5 similar ted talks (urls) that are similar to yours.  
-   
+
+# Prep and push into an elasticsearch database
+
+I gave a talk at the Devfest DC 2019 where I discussed taking our ted talk data and model results and ingesting them into an elasticsearch index so that we can use Kibana to view our results and search the data. The last notebook is the code that prepares our dataframe for ingestion (some cleaning). I show several examples for various ways to get data of this type (one big dataframe) into elasticsearch since most tutorials focus on other types of streaming data. 
+
+[ted_talks_2_elastic_slides.ipynb][7]
  
