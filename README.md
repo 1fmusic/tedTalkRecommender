@@ -198,4 +198,11 @@ Then, it returns your talk's title and url along with 5 similar ted talks (urls)
 I gave a talk at the Devfest DC 2019 where I discussed taking our ted talk data and model results and ingesting them into an elasticsearch index so that we can use Kibana to view our results and search the data. The last notebook is the code that prepares our dataframe for ingestion (some cleaning). I show several examples for various ways to get data of this type (one big dataframe) into elasticsearch since most tutorials focus on other types of streaming data. 
 
 [ted_talks_2_elastic_slides.ipynb][7]
+
+# t-SNE plotting with plotly
+
+This workbook is from a 'Cakes and Tensors' presentation at Booz Allen Hamilton. It focuses on t-SNE plotting using matplotlib and plotly, as well as saving the data to upload to plotly. There is also a yml file if you want to recreate my conda environment (the instructions for this are at the top of the notebook).  You can view this notebook with nbviewer at https://nbviewer.jupyter.org/github/1fmusic/tedTalkRecommender/blob/master/topic_modeling_tSNE_tutorial2.ipynb
+
+[topic_modeling_tSNE_tutorial2.ipynb][8]
+[tsne_environment.yml][9]
  
