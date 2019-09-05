@@ -8,8 +8,14 @@ Order of the files: (keep reading for descriptions)
 4. [ted_rec.html][4] 
 5. [ted_app.py][5] 
 6. [ted_talks_2_elastic_slides.ipynb][7]
+7. [tsne_environment.yml][8]
+8. [topic_modeling_tSNE_tutorial2.ipynb][9]
+
 
 [7]: https://github.com/1fmusic/tedTalkRecommender/blob/master/ted_talks_2_elastic_slides.ipynb
+
+[8]: https://github.com/1fmusic/tedTalkRecommender/blob/master/tsne_environment.yml
+[9]: https://github.com/1fmusic/tedTalkRecommender/blob/master/topic_modeling_tSNE_tutorial2.ipynb
 
 
 This repo contains Ipython/Jupyter notebooks for basic exploration of transcripts of Ted Talks using Natural Language Processing (NLP), topic modeling, and a recommender that lets you enter key words from the title of a talk and finds 5 talks that are similar.
